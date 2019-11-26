@@ -59,6 +59,7 @@ const Poster = ({ id, imgUrl, title, rating, year, isMovie = false }) => (
               : require("../assets/noPosterSmall.png")
           }
         />
+
         <Rating>
           <span role="img" aria-label="rating">
             ⭐️
