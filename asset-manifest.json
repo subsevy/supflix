@@ -1,0 +1,19 @@
+{
+  "files": {
+    "main.js": "/supflix/static/js/main.0a2b2782.chunk.js",
+    "main.js.map": "/supflix/static/js/main.0a2b2782.chunk.js.map",
+    "runtime-main.js": "/supflix/static/js/runtime-main.3c5ec581.js",
+    "runtime-main.js.map": "/supflix/static/js/runtime-main.3c5ec581.js.map",
+    "static/js/2.5c4c8606.chunk.js": "/supflix/static/js/2.5c4c8606.chunk.js",
+    "static/js/2.5c4c8606.chunk.js.map": "/supflix/static/js/2.5c4c8606.chunk.js.map",
+    "index.html": "/supflix/index.html",
+    "precache-manifest.c26e6af8d44836dfb93b161de7c95518.js": "/supflix/precache-manifest.c26e6af8d44836dfb93b161de7c95518.js",
+    "service-worker.js": "/supflix/service-worker.js",
+    "static/media/noPosterSmall.png": "/supflix/static/media/noPosterSmall.87a0eb6a.png"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.3c5ec581.js",
+    "static/js/2.5c4c8606.chunk.js",
+    "static/js/main.0a2b2782.chunk.js"
+  ]
+}
