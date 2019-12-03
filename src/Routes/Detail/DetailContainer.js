@@ -12,9 +12,19 @@ export default class extends React.Component {
       result: null,
       error: null,
       loading: true,
-      isMovie: pathname.includes("/movie/")
+      isMovie: pathname.includes("/movie/"),
+      videosPopup: false,
+      productionsPopup: false,
+      seasonsPopup: false
     };
   }
+
+  toggleVideosPopup = () =>
+    this.setState({ videosPopup: !this.state.videosPopup });
+  toggleProductionsPopup = () =>
+    this.setState({ productionsPopup: !this.state.productionsPopup });
+  toggleSeasonsPopup = () =>
+    this.setState({ seasonsPopup: !this.state.seasonsPopup });
 
   async componentDidMount() {
     const {
@@ -43,7 +53,26 @@ export default class extends React.Component {
   }
 
   render() {
-    const { result, error, loading } = this.state;
-    return <DetailPresenter result={result} error={error} loading={loading} />;
+    const {
+      result,
+      error,
+      loading,
+      videosPopup,
+      productionsPopup,
+      seasonsPopup
+    } = this.state;
+    return (
+      <DetailPresenter
+        result={result}
+        error={error}
+        loading={loading}
+        videosPopup={videosPopup}
+        productionsPopup={productionsPopup}
+        seasonsPopup={seasonsPopup}
+        toggleVideosPopup={() => this.toggleVideosPopup()}
+        toggleProductionsPopup={() => this.toggleProductionsPopup()}
+        toggleSeasonsPopup={() => this.toggleSeasonsPopup()}
+      />
+    );
   }
 }

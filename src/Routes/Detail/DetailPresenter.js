@@ -4,6 +4,10 @@ import styled from "styled-components";
 import Helmet from "react-helmet";
 import Loader from "../../Components/Loader";
 
+import { faImdb } from "@fortawesome/free-brands-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import Popup from "../../Components/Popup";
+
 const Container = styled.div`
   height: calc(100vh - 50px);
   width: 100%;
@@ -44,7 +48,7 @@ const Cover = styled.div`
 
 const Data = styled.div`
   width: 70%;
-  margin-left: 10px;
+  margin-left: 30px;
 `;
 
 const Title = styled.h3`
@@ -68,7 +72,45 @@ const Overview = styled.p`
   width: 50%;
 `;
 
-const DetailPresenter = ({ result, error, loading }) =>
+const ButtonContainer = styled.div`
+  width: 100%;
+  margin-top: 20px;
+  display: flex;
+  justify-content: flex-start;
+`;
+
+const VideoList = styled.div`
+  margin-right: 30px;
+`;
+
+const ProductionList = styled.div`
+  margin-right: 30px;
+`;
+
+const SeasonList = styled.div``;
+
+const Button = styled.button`
+  cursor: pointer;
+  text-transform: uppercase;
+  font-weight: 600;
+  border: 2px solid #1abc9c;
+  padding: 5px;
+  border-radius: 3px;
+  color: black;
+  background-color: rgba(255, 255, 255, 0.3);
+`;
+
+const DetailPresenter = ({
+  result,
+  error,
+  loading,
+  videosPopup,
+  productionsPopup,
+  seasonsPopup,
+  toggleVideosPopup,
+  toggleProductionsPopup,
+  toggleSeasonsPopup
+}) =>
   loading ? (
     <>
       <Helmet>
@@ -99,7 +141,7 @@ const DetailPresenter = ({ result, error, loading }) =>
           <Title>
             {result.original_title
               ? result.original_title
-              : result.original_name}
+              : result.original_name}{" "}
           </Title>
           <ItemContainer>
             <Item>
@@ -120,8 +162,49 @@ const DetailPresenter = ({ result, error, loading }) =>
                     : `${genre.name} / `
                 )}
             </Item>
+            <Divider>•</Divider>
+            <a
+              href={`https://imdb.com/title/${
+                result.imdb_id ? result.imdb_id : result.external_ids.imdb_id
+              }`}
+              target="_blank"
+            >
+              <FontAwesomeIcon icon={faImdb} size="2x"></FontAwesomeIcon>
+            </a>
           </ItemContainer>
           <Overview>{result.overview}</Overview>
+          <ButtonContainer>
+            <VideoList>
+              <Button onClick={toggleVideosPopup}>videos</Button>
+              {videosPopup ? (
+                <Popup
+                  videos={result.videos.results}
+                  closePopup={toggleVideosPopup}
+                ></Popup>
+              ) : null}
+            </VideoList>
+            <ProductionList>
+              <Button onClick={toggleProductionsPopup}>production</Button>
+              {productionsPopup ? (
+                <Popup
+                  companies={result.production_companies}
+                  countries={result.production_countries}
+                  closePopup={toggleProductionsPopup}
+                ></Popup>
+              ) : null}
+            </ProductionList>
+            {result.seasons ? (
+              <SeasonList>
+                <Button onClick={toggleSeasonsPopup}>seasons</Button>
+                {seasonsPopup ? (
+                  <Popup
+                    seasons={result.seasons}
+                    closePopup={toggleSeasonsPopup}
+                  ></Popup>
+                ) : null}
+              </SeasonList>
+            ) : null}
+          </ButtonContainer>
         </Data>
       </Content>
     </Container>
@@ -130,7 +213,9 @@ const DetailPresenter = ({ result, error, loading }) =>
 DetailPresenter.propTypes = {
   result: PropTypes.object,
   error: PropTypes.string,
-  loading: PropTypes.bool.isRequired
+  loading: PropTypes.bool.isRequired,
+  showPopup: PropTypes.bool,
+  togglePopup: PropTypes.func
 };
 
 export default DetailPresenter;
